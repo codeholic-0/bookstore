@@ -4,4 +4,7 @@
 
 **/.mvn/
 
+*.class
+
+*.log
 application-prod.properties
