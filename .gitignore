@@ -4,4 +4,4 @@
 
 **/.mvn/
 
-**/application-prod.properties
+application-prod.properties
