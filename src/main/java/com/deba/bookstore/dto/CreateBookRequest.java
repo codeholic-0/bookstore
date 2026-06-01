@@ -3,10 +3,6 @@ package com.deba.bookstore.dto;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;
@@ -14,39 +10,23 @@ import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 
 public class CreateBookRequest {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
-    @Column(nullable = false)
     @NotBlank(message = "Title is required")
     private String title;
 
-    @Column(nullable = false)
     @NotBlank(message = "Author is required")
     private String author;
 
     @NotBlank(message = "ISBN is required")
-    @Column(unique = true, nullable = false)
     @Size(min = 10, max = 13)
     private String isbn;
 
-    @Column(nullable = false)
     @NotNull(message = "Price is required")
     @Positive(message = "Price must be positive")
     private BigDecimal price;
 
-    @Column(name = "published_date")
     @Past(message = "Published date must be in the past")
     private LocalDate publishedDate;
-
-    public Long getId() {
-        return this.id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getTitle() {
         return this.title;

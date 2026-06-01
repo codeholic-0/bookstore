@@ -1,6 +1,7 @@
 package com.deba.bookstore.controller;
 
-import com.deba.bookstore.entity.Book;
+import com.deba.bookstore.dto.BookResponse;
+import com.deba.bookstore.dto.CreateBookRequest;
 import com.deba.bookstore.service.BookService;
 
 import jakarta.validation.Valid;
@@ -20,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @RestController
-@RequestMapping("/api/books") // setting the base url
+@RequestMapping("/api/books")
 public class BookController {
     private final BookService bookService;
 
@@ -29,26 +30,26 @@ public class BookController {
     }
 
     @PostMapping
-    public ResponseEntity<Book> createBook(@Valid @RequestBody Book book) {
-        Book savedBook = bookService.createBook(book);
+    public ResponseEntity<BookResponse> createBook(@Valid @RequestBody CreateBookRequest req) {
+        BookResponse savedBook = bookService.createBook(req);
         return new ResponseEntity<>(savedBook, HttpStatus.CREATED);
     }
 
     @GetMapping
-    public ResponseEntity<List<Book>> getAllBooks() {
-        List<Book> books = bookService.getAllBooks();
+    public ResponseEntity<List<BookResponse>> getAllBooks() {
+        List<BookResponse> books = bookService.getAllBooks();
         return ResponseEntity.ok(books);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Book> getBookById(@PathVariable Long id) {
-        Book book = bookService.getBookById(id);
+    public ResponseEntity<BookResponse> getBookById(@PathVariable Long id) {
+        BookResponse book = bookService.getBookById(id);
         return ResponseEntity.ok(book);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Book> updateBook(@PathVariable Long id, @Valid @RequestBody Book book) {
-        Book updatedBook = bookService.updateBook(id, book);
+    public ResponseEntity<BookResponse> updateBook(@PathVariable Long id, @Valid @RequestBody CreateBookRequest req) {
+        BookResponse updatedBook = bookService.updateBook(id, req);
         return ResponseEntity.ok(updatedBook);
     }
 
@@ -57,5 +58,4 @@ public class BookController {
         bookService.deleteBook(id);
         return ResponseEntity.noContent().build();
     }
-
 }

@@ -1,13 +1,7 @@
 package com.deba.bookstore.entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Past;
-import jakarta.validation.constraints.Positive;
-import jakarta.validation.constraints.Size;
-
-import java.math.BigDecimal; //for price, standard monitay values
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Entity
@@ -18,25 +12,18 @@ public class Book {
     private Long id;
 
     @Column(nullable = false)
-    @NotBlank(message = "Title is required")
     private String title;
 
     @Column(nullable = false)
-    @NotBlank(message = "Author is required")
     private String author;
 
-    @NotBlank(message = "ISBN is required")
     @Column(unique = true, nullable = false)
-    @Size(min = 10, max = 13)
     private String isbn;
 
     @Column(nullable = false)
-    @NotNull(message = "Price is required")
-    @Positive(message = "Price must be positive")
     private BigDecimal price;
 
     @Column(name = "published_date")
-    @Past(message = "Published date must be in the past")
     private LocalDate publishedDate;
 
     public Long getId() {
@@ -86,5 +73,4 @@ public class Book {
     public void setPublishedDate(LocalDate publishedDate) {
         this.publishedDate = publishedDate;
     }
-
 }
