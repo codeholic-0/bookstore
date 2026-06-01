@@ -3,3 +3,5 @@
 **/target/
 
 **/.mvn/
+
+**/application-prod.properties
