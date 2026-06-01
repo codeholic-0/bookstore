@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 
 import com.deba.bookstore.repository.BookRepository;
 import com.deba.bookstore.entity.Book;
+import com.deba.bookstore.exception.BookNotFoundException;
 
 import java.util.List;
 
@@ -23,9 +24,9 @@ public class BookService {
         return bookRepository.findAll();
     }
 
-    public Book getBookById(Long id) throws RuntimeException {
+    public Book getBookById(Long id) throws BookNotFoundException {
         return bookRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Book not found with id: " + id));
+                .orElseThrow(() -> new BookNotFoundException(id));
     }
 
     public Book updateBook(Long id, Book bookDetails) {
